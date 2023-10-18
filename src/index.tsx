@@ -27,7 +27,6 @@ interface CommandPanelProps {
 }
 
 const CommandPanel = (props: CommandPanelProps) => {
-  const weburl = `https://jaywcjlove.github.io/linux-command/c${props.path}.html`;
   return (
     <List.Item
       title={props.name}
@@ -35,13 +34,11 @@ const CommandPanel = (props: CommandPanelProps) => {
       icon={Icon.Terminal}
       actions={
         <ActionPanel>
-          <Action.OpenInBrowser url={weburl} />
-          <Action.CopyToClipboard title="Copy Detail URL" content={weburl} />
           <Action.Push
             title="Show Details"
             icon={Icon.Eye}
             shortcut={{ modifiers: ["cmd"], key: "." }}
-            target={<DetailMarkdown markdown={"Loading...."} command={props.path.replace(/^\//, "")} />}
+            target={<DetailMarkdown command={props.path.replace(/^\//, "")} />}
           />
         </ActionPanel>
       }
@@ -54,7 +51,6 @@ interface DetailMarkdownProps {
   command: string;
 }
 const DetailMarkdown = (props: DetailMarkdownProps) => {
-  const weburl = `https://jaywcjlove.github.io/linux-command/c/${props.command}.html`;
   const [markdown, setMarkdown] = useState(props.markdown);
   useEffect(() => {
     https
@@ -70,18 +66,11 @@ const DetailMarkdown = (props: DetailMarkdownProps) => {
         });
       })
       .on("error", (e) => {
-        setMarkdown(`ERROR: ${weburl} \n\n ${e.message}`);
+        setMarkdown(`ERROR: ${e.message}`);
         console.error(e.message);
       });
   }, []);
   return (
-    <Detail
-      markdown={markdown}
-      actions={
-        <ActionPanel>
-          <Action.CopyToClipboard title="Copy Website URL" content={weburl} />
-        </ActionPanel>
-      }
-    />
+    <Detail markdown={markdown == null ? "![loading](../assets/loading.gif)" : markdown} isLoading={markdown == null} />
   );
 };

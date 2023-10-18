@@ -5,6 +5,10 @@
   "description": "Search through linux commands and get detailed information in Chinese.",
   "icon": "command-icon.png",
   "author": "jaywcjlove",
+  "owner": "xiaobili",
+  "contributors": [
+    "xiaobili"
+  ],
   "license": "MIT",
   "commands": [
     {
