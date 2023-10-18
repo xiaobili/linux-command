@@ -38,7 +38,9 @@ const CommandPanel = (props: CommandPanelProps) => {
             title="Show Details"
             icon={Icon.Eye}
             shortcut={{ modifiers: ["cmd"], key: "." }}
-            target={<DetailMarkdown command={props.path.replace(/^\//, "")} />}
+            target={
+              <DetailMarkdown command={props.path.replace(/^\//, "")} markdown={"![loading](../assets/loading.gif)"} />
+            }
           />
         </ActionPanel>
       }
@@ -70,7 +72,5 @@ const DetailMarkdown = (props: DetailMarkdownProps) => {
         console.error(e.message);
       });
   }, []);
-  return (
-    <Detail markdown={markdown == null ? "![loading](../assets/loading.gif)" : markdown} isLoading={markdown == null} />
-  );
+  return <Detail markdown={markdown} isLoading={markdown == null} />;
 };
