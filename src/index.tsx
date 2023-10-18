@@ -72,5 +72,5 @@ const DetailMarkdown = (props: DetailMarkdownProps) => {
         console.error(e.message);
       });
   }, []);
-  return <Detail markdown={markdown} isLoading={markdown == null} />;
+  return <Detail markdown={markdown} isLoading={markdown == "![loading](../assets/loading.gif)"} />;
 };

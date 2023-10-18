@@ -4,7 +4,7 @@
   "title": "Search Linux Commands",
   "description": "Search through linux commands and get detailed information in Chinese.",
   "icon": "command-icon.png",
-  "author": "jaywcjlove",
+  "author": "xiaobili",
   "owner": "xiaobili",
   "contributors": [
     "xiaobili"
@@ -19,9 +19,9 @@
     }
   ],
   "dependencies": {
-    "linux-command": "^1.8.2",
-    "follow-redirects": "~1.14.9",
-    "@raycast/api": "^1.29.1"
+    "linux-command": "^1.14.0",
+    "follow-redirects": "~1.15.3",
+    "@raycast/api": "^1.59.0"
   },
   "devDependencies": {
     "@types/follow-redirects": "^1.14.3",
