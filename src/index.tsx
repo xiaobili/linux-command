@@ -1,4 +1,4 @@
-import { ActionPanel, Detail, List, Icon, Action } from "@raycast/api";
+import { ActionPanel, Detail, List, Icon, Action, showToast, Toast } from "@raycast/api";
 import { https } from "follow-redirects";
 import data from "linux-command";
 import { useEffect, useState } from "react";
@@ -38,9 +38,7 @@ const CommandPanel = (props: CommandPanelProps) => {
             title="Show Details"
             icon={Icon.Eye}
             shortcut={{ modifiers: ["cmd"], key: "." }}
-            target={
-              <DetailMarkdown command={props.path.replace(/^\//, "")} markdown={"![loading](../assets/loading.gif)"} />
-            }
+            target={<DetailMarkdown command={props.path.replace(/^\//, "")} />}
           />
         </ActionPanel>
       }
@@ -49,11 +47,10 @@ const CommandPanel = (props: CommandPanelProps) => {
 };
 
 interface DetailMarkdownProps {
-  markdown: string;
   command: string;
 }
 const DetailMarkdown = (props: DetailMarkdownProps) => {
-  const [markdown, setMarkdown] = useState(props.markdown);
+  const [markdown, setMarkdown] = useState("![loading](../assets/loading.gif)");
   useEffect(() => {
     https
       .get(`https://unpkg.com/linux-command/command/${props.command}.md`, (res) => {
@@ -72,5 +69,8 @@ const DetailMarkdown = (props: DetailMarkdownProps) => {
         console.error(e.message);
       });
   }, []);
+  if (markdown == "![loading](../assets/loading.gif)") {
+    showToast(Toast.Style.Animated, "Loading...");
+  } else showToast(Toast.Style.Success, "Loaded");
   return <Detail markdown={markdown} isLoading={markdown == "![loading](../assets/loading.gif)"} />;
 };
